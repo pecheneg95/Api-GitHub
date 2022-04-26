@@ -7,7 +7,7 @@ function MainPage(props) {
   return (
       /* Стартовое состояние */
     <div className="main-page">
-      <div class="start-message">
+      <div className="start-message">
         <img src={searchImg}></img>
         <p className="message">Start with searching a GitHub user</p>
       </div>
