@@ -1,17 +1,18 @@
-import React, {useState} from "react";
+import React, { useState } from "react";
 import ReactDOM from "react-dom";
 import logo from "../assets/svg/gitHub-logo.svg";
 
 function SearchLine(props) {
-
-  const [search, setSearch] = useState('');
+  const [search, setSearch] = useState("");
 
   const doSearch = (event) => {
-    if (props.onSearch) {
-      props.onSearch(event.target.value)
+    if (event.key === "Enter" && props.onSearch) {
+      props.onSearch(event.target.value);
     }
-    setSearch(event.target.value) 
-  }
+  };
+  const setValue = (event) => {
+    setSearch(event.target.value);
+  };
 
   return (
     <div className="search-line-block">
@@ -23,7 +24,8 @@ function SearchLine(props) {
           autoComplete="off"
           placeholder="Enter GitHub username"
           value={search}
-          onChange={doSearch}
+          onChange={setValue}
+          onKeyPress={doSearch}
         />
       </div>
     </div>
