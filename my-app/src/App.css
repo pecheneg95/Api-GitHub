@@ -1,3 +1,8 @@
+@font-face {
+  font-family: Inter;
+  src: url("assets/fonts/Inter/Inter-VariableFont_slnt\,wght.ttf");
+}
+
 .App {
   text-align: center;
 }
@@ -60,15 +65,8 @@
   padding-left: 44px;
   border: 0px;
 }
-
-.main-page {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  min-width: 100%;
-  min-height: calc(100vh - 72px);
-}
-.start-message, .union-message {
+.start-message,
+.union-message {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -97,3 +95,4 @@
   margin: 0;
   color: #808080;
 }
+

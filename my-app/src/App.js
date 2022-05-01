@@ -1,9 +1,8 @@
 import React, { useState } from "react";
-import logo from "./logo.svg";
 import "./App.css";
 import axios from "axios";
 import SearchLine from "./components/SearchLine.jsx";
-import MainPage from "./components/MainPage.jsx";
+import MainPage from "./components/MainPage/MainPage.jsx";
 
 function App() {
   const [parametrsRequestUser, setParametrsRequestUser] = useState({
@@ -17,13 +16,11 @@ function App() {
       const result = await axios.get(
         `https://api.github.com/users/${newSearch}`
       );
-      console.log("New search:", newSearch);
-      console.log("New search result:", result);
+
       if (result.data.public_repos > 0) {
         const userReposList = await axios.get(
           `https://api.github.com/users/${result.data.login}/repos`
         );
-        console.log(userReposList)
         setParametrsRequestUser({
           isStart: false,
           userInfo: result.data,
@@ -57,7 +54,6 @@ function App() {
       console.log("Unknown error");
     }
   };
-  console.log(parametrsRequestUser);
   return (
     <div className="App">
       <SearchLine onSearch={onSearch} />
