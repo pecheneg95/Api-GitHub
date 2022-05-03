@@ -1,0 +1,23 @@
+.searchLineBlock {
+  background-color: #0064eb;
+  height: 72px;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 22px;
+}
+.searchLineBlock img {
+  margin-left: 41px;
+}
+.search {
+  width: 500px;
+  height: 40px;
+  border-radius: 6px;
+  background-image: url(../../assets/svg/search.svg);
+  background-size: 14px;
+  background-repeat: no-repeat;
+  background-position: 19px center;
+  padding-left: 44px;
+  border: 0px;
+}

@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import ReactDOM from "react-dom";
-import logo from "../assets/svg/gitHub-logo.svg";
+import logo from "../../assets/svg/gitHub-logo.svg";
+import styles from "./SearchLine.module.css";
 
 function SearchLine(props) {
   const [search, setSearch] = useState("");
@@ -15,12 +16,12 @@ function SearchLine(props) {
   };
 
   return (
-    <div className="search-line-block">
+    <div className={styles.searchLineBlock}>
       <img src={logo} alt="logo" />
-      <div className="search-line">
+      <div className={styles.searchLine}>
         <input
           type="search"
-          className="search"
+          className={styles.search}
           autoComplete="off"
           placeholder="Enter GitHub username"
           value={search}

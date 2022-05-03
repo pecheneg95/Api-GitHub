@@ -1,0 +1,70 @@
+@font-face {
+    font-family: Inter;
+    src: url("../../../assets/fonts/Inter/Inter-VariableFont_slnt\,wght.ttf");
+  }
+  
+  .userInfo {
+    width: 30%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+  .avatar {
+    height: 280px;
+    width: 280px;
+    border-radius: 140px;
+  }
+  .userTextContent {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  .userName {
+    height: 34px;
+    margin-top: 30px;
+    font-family: "Inter";
+    font-style: normal;
+    font-weight: 600;
+    font-size: 26px;
+    line-height: 130%;
+    color: #000000;
+  }
+  
+  .userLink {
+    height: 30px;
+    margin-top: 12px;
+    font-family: "Inter";
+    font-style: normal;
+    font-weight: 400;
+    font-size: 18px;
+    line-height: 22px;
+  
+    color: #0064eb;
+  }
+  .follow {
+    display: flex;
+    flex-direction: row;
+    margin-top: 25px;
+  }
+  .followers,
+  .following {
+    display: flex;
+    height: 25px;
+    width: 150px;
+    align-items: center;
+    gap: 10px;
+  }
+  .followIcon {
+    height: 20px;
+    width: 20px;
+  }
+  .followText {
+    height: 25px;
+    font-family: "Inter";
+    font-style: normal;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 150%;
+    color: #000000;
+  }

@@ -1,0 +1,97 @@
+@font-face {
+  font-family: Inter;
+  src: url("../../../assets/fonts/Inter/Inter-VariableFont_slnt\,wght.ttf");
+}
+
+.userRepos {
+  width: 70%;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
+}
+.userInfoHeader {
+  font-family: "Inter";
+  font-style: normal;
+  font-weight: 600;
+  font-size: 32px;
+  line-height: 130%;
+  color: #000000;
+}
+.userReposItem {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+  gap: 16px;
+  margin-top: 25px;
+  height: 100px;
+  background-color: white;
+}
+.userReposItemName {
+  display: flex;
+  text-align: left;
+  font-family: "Inter";
+  font-style: normal;
+  font-weight: 500;
+  font-size: 24px;
+  line-height: 29px;
+  color: #0064eb;
+  margin-left: 32px;
+}
+.userReposItemDescription {
+  display: flex;
+  text-align: left;
+  font-family: "Inter";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 19px;
+  color: #000000;
+  margin-left: 32px;
+}
+.paginateBlock {
+  display: flex;
+  gap: 20px;
+}
+.paginateContainer {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  gap: 20px;
+}
+.paginateBreak,
+.paginateBreakLink,
+.paginatePage,
+.paginatePageLink,
+.paginateNext,
+.paginatePrevious,
+.paginatePageActive,
+.paginatePageLinksActive {
+  list-style-type: none;
+  cursor: pointer;
+}
+.paginateNext,
+.paginatePrevious,
+.paginateBreak {
+  color: #808080;
+}
+.paginatePage {
+  height: 25px;
+  width: 20px;
+  font-family: "Inter";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 21px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #808080;
+}
+.paginatePageActive,
+.paginatePageLinksActive {
+  border-radius: 5px;
+  color: #ffffff;
+  background-color: #0064eb;
+}
