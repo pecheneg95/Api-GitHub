@@ -10,6 +10,7 @@
     "js-abbreviation-number": "^1.4.0",
     "react": "^18.0.0",
     "react-dom": "^18.0.0",
+    "react-paginate": "github:adeled/react-paginate#v9",
     "react-scripts": "5.0.1",
     "web-vitals": "^2.1.4"
   },

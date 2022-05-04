@@ -3,8 +3,9 @@ import ReactDOM from "react-dom";
 import styles from "./ReposList.module.css";
 import { abbreviateNumber } from "js-abbreviation-number";
 import ReactPaginate from "react-paginate";
+import Loader from "../Loader";
 
-import { REPOS_ON_PAGE } from "../../../constants.js"
+import { REPOS_ON_PAGE } from "../../../constants.js";
 
 function ReposList(props) {
   const userReposList = props.params.userRepos.data;
@@ -22,8 +23,37 @@ function ReposList(props) {
       </p>
     </div>
   ));
-  console.log(props.params.userRepos)
-  console.log(props.params.userReposPage)
+  if (props.isReposLoading === true) {
+    return (
+      <div className={styles.userRepos}>
+        <Loader />
+        <ReactPaginate
+          pageCount={Math.ceil(
+            props.params.userInfo.public_repos / REPOS_ON_PAGE
+          )}
+          pageRangeDisplayed={3}
+          marginPagesDisplayed={1}
+          page={props.params.userReposPage - 1}
+          breakLabel="..."
+          nextLabel=">"
+          previousLabel="<"
+          onPageChange={(target) => {
+            const pageNumber = target.selected + 1;
+            props.setUserReposPage(pageNumber);
+          }}
+          containerClassName={styles.paginateContainer}
+          breakClassName={styles.paginateBreak}
+          breakLinkClassName={styles.paginateBreakLink}
+          pageLinkClassName={styles.paginatePageLink}
+          pageClassName={styles.paginatePage}
+          activeClassName={styles.paginatePageActive}
+          nextClassName={styles.paginateNext}
+          previousClassName={styles.paginatePrevious}
+          activeLinkClassName={styles.paginatePageLinksActive}
+        />
+      </div>
+    );
+  }
   return (
     <div className={styles.userRepos}>
       <p className={styles.userInfoHeader}>
@@ -38,9 +68,12 @@ function ReposList(props) {
           of {props.params.userInfo.public_repos} items
         </div>
         <ReactPaginate
-          pageCount={Math.ceil(props.params.userInfo.public_repos / REPOS_ON_PAGE)}
+          pageCount={Math.ceil(
+            props.params.userInfo.public_repos / REPOS_ON_PAGE
+          )}
           pageRangeDisplayed={3}
           marginPagesDisplayed={1}
+          page={props.params.userReposPage - 1}
           breakLabel="..."
           nextLabel=">"
           previousLabel="<"

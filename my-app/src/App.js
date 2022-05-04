@@ -13,7 +13,13 @@ function App() {
     userRepos: null,
     userReposPage: 1,
   });
+
+  const [isUserLoading, setIsUserLoading] = useState(false);
+  const [isReposLoading, setIsReposLoading] = useState(false);
+
   const setUserReposPage = async (newNumberPage) => {
+    setIsReposLoading(true);
+    console.log(isReposLoading);
     const userReposList = await axios.get(
       `https://api.github.com/users/${parametrsRequestUser.userInfo.login}/repos`,
       {
@@ -28,10 +34,14 @@ function App() {
       userReposPage: newNumberPage,
       userRepos: userReposList,
     });
+    setIsReposLoading(false);
+    console.log(isReposLoading);
   };
 
   const onSearch = async (newSearch) => {
     try {
+      setIsUserLoading(true);
+      console.log(isUserLoading);
       const result = await axios.get(
         `https://api.github.com/users/${newSearch}`
       );
@@ -42,7 +52,7 @@ function App() {
           {
             params: {
               per_page: REPOS_ON_PAGE,
-              page: parametrsRequestUser.userReposPage,
+              page: 1,
             },
           }
         );
@@ -51,7 +61,10 @@ function App() {
           isStart: false,
           userInfo: result.data,
           userRepos: userReposList,
+          userReposPage: 1,
         });
+        setIsUserLoading(false);
+        console.log(isUserLoading);
         return;
       }
       if (result.data.public_repos === 0) {
@@ -83,13 +96,14 @@ function App() {
       }
     }
   };
-  console.log(parametrsRequestUser);
   return (
     <div className="App">
       <SearchLine onSearch={onSearch} />
       <MainPage
         params={parametrsRequestUser}
         setUserReposPage={setUserReposPage}
+        isUserLoading={isUserLoading}
+        isReposLoading={isReposLoading}
       />
     </div>
   );
