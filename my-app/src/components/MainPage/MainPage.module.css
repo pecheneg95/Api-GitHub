@@ -21,7 +21,13 @@ li {
   display: flex;
   align-items: center;
   width: 100%;
-  height: calc(100% - 72px);
+  height: 100%;
+}
+.reposNotFound {
+  display: flex;
+  align-items: center;
+  width: 70%;
+  height: 100%;
 }
 .emptyStateMessage {
   display: flex;
@@ -66,4 +72,11 @@ li {
 @keyframes spin {
   0% { transform: rotate(0deg); }
   100% { transform: rotate(360deg); }
+}
+
+@media (max-width: 480px) {
+  .mainPage { 
+    height: 100%;
+    flex-direction: column;
+  }
 }

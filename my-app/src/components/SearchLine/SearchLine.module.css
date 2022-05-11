@@ -10,6 +10,12 @@
 .searchLineBlock img {
   margin-left: 41px;
 }
+input[type="search"]::-webkit-search-decoration,
+input[type="search"]::-webkit-search-cancel-button,
+input[type="search"]::-webkit-search-results-button,
+input[type="search"]::-webkit-search-results-decoration {
+  display: none;
+}
 .search {
   width: 500px;
   height: 40px;
@@ -20,4 +26,17 @@
   background-position: 19px center;
   padding-left: 44px;
   border: 0px;
+  margin-right: 20px;
+}
+.searchLine{
+  display: flex;
+  justify-content: flex-start;
+  align-items: flex-start;
+  width: 100%;
+}
+@media (max-width: 620px) {
+  .search {
+    width: 100%;
+    flex-grow: 1;
+  }
 }

@@ -5,7 +5,7 @@ import styles from "./MainPage.module.css";
 
 function ReposNotFound() {
   return (
-    <div className={styles.emptyState}>
+    <div className={styles.reposNotFound}>
       <div className={styles.emptyStateMessage}>
         <img src={reposNotFoundImg}></img>
         <p className={styles.message}>Repository list is empty</p>

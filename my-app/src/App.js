@@ -74,8 +74,10 @@ function App() {
           userRepos: null,
           userReposPage: null,
         });
+        setIsUserLoading(false);
       }
     } catch (error) {
+      setIsUserLoading(false);
       console.log(error);
       if (error.response.status === 404) {
         setParametrsRequestUser({

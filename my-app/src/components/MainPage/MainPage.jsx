@@ -10,7 +10,7 @@ import ReposList from "./ReposList/ReposList";
 import styles from "./MainPage.module.css";
 
 function MainPage(props) {
-  if(props.isUserLoading === true) {
+  if (props.isUserLoading === true) {
     return <Loader />;
   }
   if (props.params.isStart === true) {
@@ -23,8 +23,12 @@ function MainPage(props) {
     if (props.params.userRepos) {
       return (
         <div className={styles.mainPage}>
-          <UserInfo params={props.params} />;
-          <ReposList params={props.params} setUserReposPage={props.setUserReposPage} isReposLoading={props.isReposLoading}/>
+          <UserInfo params={props.params} />
+          <ReposList
+            params={props.params}
+            setUserReposPage={props.setUserReposPage}
+            isReposLoading={props.isReposLoading}
+          />
         </div>
       );
     }

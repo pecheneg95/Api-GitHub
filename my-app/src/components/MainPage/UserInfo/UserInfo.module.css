@@ -1,70 +1,120 @@
 @font-face {
-    font-family: Inter;
-    src: url("../../../assets/fonts/Inter/Inter-VariableFont_slnt\,wght.ttf");
-  }
-  
-  .userInfo {
-    width: 30%;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-  }
-  .avatar {
-    height: 280px;
-    width: 280px;
-    border-radius: 140px;
-  }
+  font-family: Inter;
+  src: url("../../../assets/fonts/Inter/Inter-VariableFont_slnt\,wght.ttf");
+}
+
+.userInfo {
+  width: 30%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin-left: 20px;
+}
+.avatar {
+  height: 280px;
+  width: 280px;
+  border-radius: 140px;
+}
+.userTextContent {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+.userName {
+  height: 34px;
+  margin-top: 30px;
+  font-family: "Inter";
+  font-style: normal;
+  font-weight: 600;
+  font-size: 26px;
+  line-height: 130%;
+  color: #000000;
+
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+}
+
+.userLink {
+  height: 30px;
+  margin-top: 12px;
+  font-family: "Inter";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 18px;
+  line-height: 22px;
+
+  color: #0064eb;
+}
+.follow {
+  display: flex;
+  flex-direction: row;
+  margin-top: 25px;
+}
+.followers,
+.following {
+  display: flex;
+  height: 25px;
+  width: 150px;
+  align-items: center;
+  gap: 10px;
+}
+.followIcon {
+  height: 20px;
+  width: 20px;
+}
+.followText {
+  height: 25px;
+  font-family: "Inter";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 150%;
+  color: #000000;
+}
+
+@media (max-width: 1024px) {
   .userTextContent {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-  }
-  .userName {
-    height: 34px;
-    margin-top: 30px;
-    font-family: "Inter";
-    font-style: normal;
-    font-weight: 600;
-    font-size: 26px;
-    line-height: 130%;
-    color: #000000;
-  }
-  
-  .userLink {
-    height: 30px;
-    margin-top: 12px;
-    font-family: "Inter";
-    font-style: normal;
-    font-weight: 400;
-    font-size: 18px;
-    line-height: 22px;
-  
-    color: #0064eb;
+    align-self: flex-start;
   }
   .follow {
-    display: flex;
-    flex-direction: row;
-    margin-top: 25px;
+    flex-direction: column;
+    gap: 20px;
   }
-  .followers,
-  .following {
-    display: flex;
-    height: 25px;
-    width: 150px;
-    align-items: center;
-    gap: 10px;
+  @media (max-width: 850px) {
+    .avatar {
+      height: 100%;
+      width: 100%;
+      border-radius: 50%;
+    }
+    @media (max-width: 480px) {
+      .userInfo {
+        width: 100%;
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        margin-left: 0px;
+        margin-top: 500px;
+      }
+      .avatar {
+        height: 280px;
+        width: 280px;
+        border-radius: 140px;
+      }
+      .userTextContent {
+        margin-left: 20px;
+      }
+      @media (max-width: 300px) {
+        .avatar {
+          height: 100%;
+          width: 100%;
+          border-radius: 50%;
+        }
+      }
+    }
   }
-  .followIcon {
-    height: 20px;
-    width: 20px;
-  }
-  .followText {
-    height: 25px;
-    font-family: "Inter";
-    font-style: normal;
-    font-weight: 400;
-    font-size: 16px;
-    line-height: 150%;
-    color: #000000;
-  }
+}
