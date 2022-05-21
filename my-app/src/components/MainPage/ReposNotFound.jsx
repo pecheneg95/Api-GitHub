@@ -13,4 +13,4 @@ function ReposNotFound() {
     </div>
   );
 }
-export default ReposNotFound;
+export default React.memo(ReposNotFound);

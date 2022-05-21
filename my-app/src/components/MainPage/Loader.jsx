@@ -9,4 +9,4 @@ function Loader() {
   </div>
   );
 }
-export default Loader;
+export default React.memo(Loader);

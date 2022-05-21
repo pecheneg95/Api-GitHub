@@ -1,19 +1,22 @@
-import React, { useState } from "react";
+import React, { useState, useCallback } from "react";
 import ReactDOM from "react-dom";
 import logo from "../../assets/svg/gitHub-logo.svg";
 import styles from "./SearchLine.module.css";
 
-function SearchLine(props) {
+const SearchLine = (props) => {
   const [search, setSearch] = useState("");
 
-  const doSearch = (event) => {
-    if (event.key === "Enter" && props.onSearch) {
-      props.onSearch(event.target.value);
-    }
-  };
-  const setValue = (event) => {
+  const doSearch = useCallback(
+    (event) => {
+      if (event.key === "Enter" && props.onSearch) {
+        props.onSearch(event.target.value);
+      }
+    },
+    [props.onSearch]
+  );
+  const setValue = useCallback((event) => {
     setSearch(event.target.value);
-  };
+  }, []);
 
   return (
     <div className={styles.searchLineBlock}>
@@ -31,6 +34,6 @@ function SearchLine(props) {
       </div>
     </div>
   );
-}
+};
 
-export default SearchLine;
+export default React.memo(SearchLine);

@@ -3,7 +3,7 @@ import ReactDOM from "react-dom";
 import unionImg from "../../assets/svg/Union.svg";
 import styles from "./MainPage.module.css";
 
-function UserNotFound() {
+function UserNotFound () {
   return (
     <div className={styles.emptyState}>
       <div className={styles.emptyStateMessage}>
@@ -13,4 +13,4 @@ function UserNotFound() {
     </div>
   );
 }
-export default UserNotFound;
+export default React.memo(UserNotFound);

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useCallback, useMemo } from "react";
 import "./App.css";
 import axios from "axios";
 import SearchLine from "./components/SearchLine/SearchLine.jsx";
@@ -8,40 +8,43 @@ import { REPOS_ON_PAGE } from "./constants.js";
 
 function App() {
   const [parametrsRequestUser, setParametrsRequestUser] = useState({
-    isStart: true,
     userInfo: null,
     userRepos: null,
     userReposPage: 1,
   });
 
+  const [isInitial, setIsInitial] = useState({
+    isInitial: true,
+  });
+
   const [isUserLoading, setIsUserLoading] = useState(false);
   const [isReposLoading, setIsReposLoading] = useState(false);
 
-  const setUserReposPage = async (newNumberPage) => {
-    setIsReposLoading(true);
-    console.log(isReposLoading);
-    const userReposList = await axios.get(
-      `https://api.github.com/users/${parametrsRequestUser.userInfo.login}/repos`,
-      {
-        params: {
-          per_page: REPOS_ON_PAGE,
-          page: newNumberPage,
-        },
-      }
-    );
-    setParametrsRequestUser({
-      ...parametrsRequestUser,
-      userReposPage: newNumberPage,
-      userRepos: userReposList,
-    });
-    setIsReposLoading(false);
-    console.log(isReposLoading);
-  };
+  const setUserReposPage = useCallback(
+    async (newNumberPage) => {
+      setIsReposLoading(true);
+      const userReposList = await axios.get(
+        `https://api.github.com/users/${parametrsRequestUser.userInfo.login}/repos`,
+        {
+          params: {
+            per_page: REPOS_ON_PAGE,
+            page: newNumberPage,
+          },
+        }
+      );
+      setParametrsRequestUser({
+        ...parametrsRequestUser,
+        userReposPage: newNumberPage,
+        userRepos: userReposList,
+      });
+      setIsReposLoading(false);
+    },
+    [REPOS_ON_PAGE, parametrsRequestUser]
+  );
 
   const onSearch = async (newSearch) => {
     try {
       setIsUserLoading(true);
-      console.log(isUserLoading);
       const result = await axios.get(
         `https://api.github.com/users/${newSearch}`
       );
@@ -56,20 +59,23 @@ function App() {
             },
           }
         );
+        setIsInitial({
+          isInitial: false,
+        });
         setParametrsRequestUser({
           ...parametrsRequestUser,
-          isStart: false,
           userInfo: result.data,
           userRepos: userReposList,
           userReposPage: 1,
         });
         setIsUserLoading(false);
-        console.log(isUserLoading);
         return;
       }
       if (result.data.public_repos === 0) {
+        setIsInitial({
+          isInitial: false,
+        });
         setParametrsRequestUser({
-          isStart: false,
           userInfo: result.data,
           userRepos: null,
           userReposPage: null,
@@ -80,15 +86,19 @@ function App() {
       setIsUserLoading(false);
       console.log(error);
       if (error.response.status === 404) {
+        setIsInitial({
+          isInitial: false,
+        });
         setParametrsRequestUser({
-          isStart: false,
           userInfo: null,
           userRepos: null,
           userReposPage: null,
         });
         if (newSearch === "") {
+          setIsInitial({
+            isInitial: true,
+          });
           setParametrsRequestUser({
-            isStart: true,
             userInfo: null,
             userRepos: null,
             userReposPage: null,
@@ -102,13 +112,14 @@ function App() {
     <div className="App">
       <SearchLine onSearch={onSearch} />
       <MainPage
-        params={parametrsRequestUser}
+        parametrsRequestUser={parametrsRequestUser}
         setUserReposPage={setUserReposPage}
         isUserLoading={isUserLoading}
         isReposLoading={isReposLoading}
+        isInitial={isInitial.isInitial}
       />
     </div>
   );
 }
 
-export default App;
+export default React.memo(App);

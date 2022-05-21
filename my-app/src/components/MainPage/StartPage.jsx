@@ -13,4 +13,4 @@ function StartPage() {
     </div>
   );
 }
-export default StartPage;
+export default React.memo(StartPage);

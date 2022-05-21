@@ -23,7 +23,9 @@
 }
 .userReposList {
   width: 100%;
+  height: 100%;
   flex-grow: 1;
+  align-items: flex-start;
 }
 .userReposItem {
   display: flex;
@@ -70,12 +72,11 @@
 .paginateBlock {
   display: flex;
   gap: 20px;
-  padding-bottom: 20px;
+  margin-bottom: 20px;
 }
 .paginateContainer {
   display: flex;
   justify-content: center;
-  width: 100%;
   gap: 20px;
 }
 .paginateBreak,

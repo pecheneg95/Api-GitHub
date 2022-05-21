@@ -9,33 +9,33 @@ import UserInfo from "./UserInfo/UserInfo";
 import ReposList from "./ReposList/ReposList";
 import styles from "./MainPage.module.css";
 
-function MainPage(props) {
-  if (props.isUserLoading === true) {
+function MainPage({isUserLoading, isReposLoading, parametrsRequestUser, setUserReposPage, isInitial}) {
+  if (isUserLoading) {
     return <Loader />;
   }
-  if (props.params.isStart === true) {
+  if (isInitial) {
     return <StartPage />;
   }
-  if (!props.params.userInfo) {
+  if (!parametrsRequestUser.userInfo) {
     return <UserNotFound />;
   }
-  if (props.params.userInfo) {
-    if (props.params.userRepos) {
+  if (parametrsRequestUser.userInfo) {
+    if (parametrsRequestUser.userRepos) {
       return (
         <div className={styles.mainPage}>
-          <UserInfo params={props.params} />
+          <UserInfo userInfo={parametrsRequestUser.userInfo} />
           <ReposList
-            params={props.params}
-            setUserReposPage={props.setUserReposPage}
-            isReposLoading={props.isReposLoading}
+            parametrsRequestUser={parametrsRequestUser}
+            setUserReposPage={setUserReposPage}
+            isReposLoading={isReposLoading}
           />
         </div>
       );
     }
-    if (!props.params.userRepos) {
+    if (!parametrsRequestUser.userRepos) {
       return (
         <div className={styles.mainPage}>
-          <UserInfo params={props.params} />
+          <UserInfo userInfo={parametrsRequestUser.userInfo} />
           <ReposNotFound />
         </div>
       );
@@ -44,4 +44,4 @@ function MainPage(props) {
   }
 }
 
-export default MainPage;
+export default React.memo(MainPage);
