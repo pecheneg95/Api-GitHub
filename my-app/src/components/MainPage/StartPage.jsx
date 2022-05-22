@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import ReactDOM from "react-dom";
+import React from "react";
+
 import searchImg from "../../assets/svg/search.svg";
 import styles from "./MainPage.module.css";
 

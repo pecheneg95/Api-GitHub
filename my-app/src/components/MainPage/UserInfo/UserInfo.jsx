@@ -1,9 +1,9 @@
-import React, { useState } from "react";
-import ReactDOM from "react-dom";
+import React from "react";
+import { abbreviateNumber } from "js-abbreviation-number";
+
 import iconFollowing from "../../../assets/svg/person.svg";
 import iconFollowers from "../../../assets/svg/shared.svg";
 import styles from "./UserInfo.module.css";
-import { abbreviateNumber } from "js-abbreviation-number";
 
 function UserInfo({ userInfo }) {
   return (

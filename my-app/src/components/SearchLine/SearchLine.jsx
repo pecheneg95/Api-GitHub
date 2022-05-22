@@ -1,19 +1,20 @@
 import React, { useState, useCallback } from "react";
-import ReactDOM from "react-dom";
+
 import logo from "../../assets/svg/gitHub-logo.svg";
 import styles from "./SearchLine.module.css";
 
-const SearchLine = (props) => {
+const SearchLine = ({ onSearch }) => {
   const [search, setSearch] = useState("");
 
   const doSearch = useCallback(
     (event) => {
-      if (event.key === "Enter" && props.onSearch) {
-        props.onSearch(event.target.value);
+      if (event.key === "Enter" && onSearch) {
+        onSearch(event.target.value);
       }
     },
-    [props.onSearch]
+    [onSearch]
   );
+
   const setValue = useCallback((event) => {
     setSearch(event.target.value);
   }, []);

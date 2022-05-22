@@ -1,14 +1,41 @@
-import React, { useState } from "react";
-import ReactDOM from "react-dom";
-import styles from "./ReposList.module.css";
+import React, { useCallback } from "react";
 import { abbreviateNumber } from "js-abbreviation-number";
 import ReactPaginate from "react-paginate";
-import Loader from "../Loader";
 
+import styles from "./ReposList.module.css";
+import Loader from "../Loader";
 import { REPOS_ON_PAGE } from "../../../constants.js";
 
-function ReposList({ isReposLoading, setUserReposPage, parametrsRequestUser }) {
-  const userReposList = parametrsRequestUser.userRepos.data;
+function ReposList({
+  isReposLoading,
+  setUserReposPage,
+  parametersRequestUser,
+}) {
+
+  const { userRepos, userInfo, userReposPage } = parametersRequestUser;
+
+  const userReposList = userRepos.data;
+
+  const firstItemLabel = (userReposPage - 1) * REPOS_ON_PAGE + 1;
+
+  const lastItemLabel =
+    (userReposPage - 1) * REPOS_ON_PAGE + userRepos.data.length;
+
+  const itemCount = userInfo.public_repos;
+
+  const shownPages = `${firstItemLabel}-
+  ${lastItemLabel} of ${itemCount} items`;
+
+  const pageCount = Math.ceil(userInfo.public_repos / REPOS_ON_PAGE);
+
+  const onPageChange = useCallback(
+    (target) => {
+      const pageNumber = target.selected + 1;
+      setUserReposPage(pageNumber);
+    },
+    [setUserReposPage]
+  );
+
   const listUserReposItem = userReposList.map((userReposList) => (
     <div key={userReposList.id} className={styles.userReposItem}>
       <a
@@ -23,73 +50,30 @@ function ReposList({ isReposLoading, setUserReposPage, parametrsRequestUser }) {
       </p>
     </div>
   ));
-  if (isReposLoading === true) {
-    return (
-      <div className={styles.userRepos}>
-        <Loader />
-        <div className={styles.paginateBlock}>
-        <div className={styles.paginateInfo}>
-          {(parametrsRequestUser.userReposPage - 1) * REPOS_ON_PAGE + 1}-
-          {(parametrsRequestUser.userReposPage - 1) * REPOS_ON_PAGE +
-            parametrsRequestUser.userRepos.data.length}{" "}
-          of {parametrsRequestUser.userInfo.public_repos} items
-        </div>
-        <ReactPaginate
-          pageCount={Math.ceil(
-            parametrsRequestUser.userInfo.public_repos / REPOS_ON_PAGE
-          )}
-          pageRangeDisplayed={3}
-          marginPagesDisplayed={1}
-          page={parametrsRequestUser.userReposPage - 1}
-          breakLabel="..."
-          nextLabel=">"
-          previousLabel="<"
-          onPageChange={(target) => {
-            const pageNumber = target.selected + 1;
-            setUserReposPage(pageNumber);
-          }}
-          containerClassName={styles.paginateContainer}
-          breakClassName={styles.paginateBreak}
-          breakLinkClassName={styles.paginateBreakLink}
-          pageLinkClassName={styles.paginatePageLink}
-          pageClassName={styles.paginatePage}
-          activeClassName={styles.paginatePageActive}
-          nextClassName={styles.paginateNext}
-          previousClassName={styles.paginatePrevious}
-          activeLinkClassName={styles.paginatePageLinksActive}
-        />
-      </div>
-      </div>
-    );
-  }
+
   return (
     <div className={styles.userRepos}>
-      <p className={styles.userInfoHeader}>
-        Repositories (
-        {abbreviateNumber(parametrsRequestUser.userInfo.public_repos)})
-      </p>
-      <ul className={styles.userReposList}>{listUserReposItem}</ul>
+      {isReposLoading ? (
+        <Loader />
+      ) : (
+        <>
+          <p className={styles.userInfoHeader}>
+            Repositories ({abbreviateNumber(userInfo.public_repos)})
+          </p>
+          <ul className={styles.userReposList}>{listUserReposItem}</ul>
+        </>
+      )}
       <div className={styles.paginateBlock}>
-        <div className={styles.paginateInfo}>
-          {(parametrsRequestUser.userReposPage - 1) * REPOS_ON_PAGE + 1}-
-          {(parametrsRequestUser.userReposPage - 1) * REPOS_ON_PAGE +
-            parametrsRequestUser.userRepos.data.length}{" "}
-          of {parametrsRequestUser.userInfo.public_repos} items
-        </div>
+        <div className={styles.paginateInfo}>{shownPages}</div>
         <ReactPaginate
-          pageCount={Math.ceil(
-            parametrsRequestUser.userInfo.public_repos / REPOS_ON_PAGE
-          )}
+          pageCount={pageCount}
           pageRangeDisplayed={3}
           marginPagesDisplayed={1}
-          page={parametrsRequestUser.userReposPage - 1}
+          page={userReposPage - 1}
           breakLabel="..."
           nextLabel=">"
           previousLabel="<"
-          onPageChange={(target) => {
-            const pageNumber = target.selected + 1;
-            setUserReposPage(pageNumber);
-          }}
+          onPageChange={onPageChange}
           containerClassName={styles.paginateContainer}
           breakClassName={styles.paginateBreak}
           breakLinkClassName={styles.paginateBreakLink}

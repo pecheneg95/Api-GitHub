@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import ReactDOM from "react-dom";
+import React from "react";
+
 import reposNotFoundImg from "../../assets/svg/reposNotFound.svg";
 import styles from "./MainPage.module.css";
 

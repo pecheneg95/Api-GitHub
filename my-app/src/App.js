@@ -1,30 +1,29 @@
-import React, { useState, useCallback, useMemo } from "react";
-import "./App.css";
+import React, { useState, useCallback } from "react";
 import axios from "axios";
+
+import "./App.css";
 import SearchLine from "./components/SearchLine/SearchLine.jsx";
 import MainPage from "./components/MainPage/MainPage.jsx";
-
 import { REPOS_ON_PAGE } from "./constants.js";
 
 function App() {
-  const [parametrsRequestUser, setParametrsRequestUser] = useState({
+  const [parametersRequestUser, setparametersRequestUser] = useState({
     userInfo: null,
     userRepos: null,
     userReposPage: 1,
   });
 
-  const [isInitial, setIsInitial] = useState({
-    isInitial: true,
-  });
+  const [isInitial, setIsInitial] = useState(true);
 
   const [isUserLoading, setIsUserLoading] = useState(false);
+
   const [isReposLoading, setIsReposLoading] = useState(false);
 
   const setUserReposPage = useCallback(
     async (newNumberPage) => {
       setIsReposLoading(true);
       const userReposList = await axios.get(
-        `https://api.github.com/users/${parametrsRequestUser.userInfo.login}/repos`,
+        `https://api.github.com/users/${parametersRequestUser.userInfo.login}/repos`,
         {
           params: {
             per_page: REPOS_ON_PAGE,
@@ -32,91 +31,92 @@ function App() {
           },
         }
       );
-      setParametrsRequestUser({
-        ...parametrsRequestUser,
+      setparametersRequestUser({
+        ...parametersRequestUser,
         userReposPage: newNumberPage,
         userRepos: userReposList,
       });
       setIsReposLoading(false);
     },
-    [REPOS_ON_PAGE, parametrsRequestUser]
+    [parametersRequestUser]
   );
 
-  const onSearch = async (newSearch) => {
-    try {
-      setIsUserLoading(true);
-      const result = await axios.get(
-        `https://api.github.com/users/${newSearch}`
-      );
-
-      if (result.data.public_repos > 0) {
-        const userReposList = await axios.get(
-          `https://api.github.com/users/${newSearch}/repos`,
-          {
-            params: {
-              per_page: REPOS_ON_PAGE,
-              page: 1,
-            },
-          }
-        );
-        setIsInitial({
-          isInitial: false,
-        });
-        setParametrsRequestUser({
-          ...parametrsRequestUser,
-          userInfo: result.data,
-          userRepos: userReposList,
-          userReposPage: 1,
-        });
-        setIsUserLoading(false);
-        return;
-      }
-      if (result.data.public_repos === 0) {
-        setIsInitial({
-          isInitial: false,
-        });
-        setParametrsRequestUser({
-          userInfo: result.data,
-          userRepos: null,
-          userReposPage: null,
-        });
-        setIsUserLoading(false);
-      }
-    } catch (error) {
-      setIsUserLoading(false);
-      console.log(error);
-      if (error.response.status === 404) {
-        setIsInitial({
-          isInitial: false,
-        });
-        setParametrsRequestUser({
+  const onSearch = useCallback(
+    async (newSearch) => {
+      if (newSearch === "") {
+        setIsInitial(true);
+        setparametersRequestUser({
           userInfo: null,
           userRepos: null,
           userReposPage: null,
         });
-        if (newSearch === "") {
-          setIsInitial({
-            isInitial: true,
+
+        return;
+      }
+
+      try {
+        setIsUserLoading(true);
+        const result = await axios.get(
+          `https://api.github.com/users/${newSearch}`
+        );
+
+        if (result.data.public_repos > 0) {
+          const userReposList = await axios.get(
+            `https://api.github.com/users/${newSearch}/repos`,
+            {
+              params: {
+                per_page: REPOS_ON_PAGE,
+                page: 1,
+              },
+            }
+          );
+          setIsInitial(false);
+          setparametersRequestUser({
+            userInfo: result.data,
+            userRepos: userReposList,
+            userReposPage: 1,
           });
-          setParametrsRequestUser({
+          setIsUserLoading(false);
+
+          return;
+        }
+
+        if (result.data.public_repos === 0) {
+          setIsInitial(false);
+          setparametersRequestUser({
+            userInfo: result.data,
+            userRepos: null,
+            userReposPage: null,
+          });
+          setIsUserLoading(false);
+        }
+      } catch (error) {
+        console.log(error);
+
+        setIsUserLoading(false);
+
+        if (error.response.status === 404) {
+          setIsInitial(false);
+          setparametersRequestUser({
             userInfo: null,
             userRepos: null,
             userReposPage: null,
           });
         }
-        return;
       }
-    }
-  };
+    },
+    [parametersRequestUser]
+  );
+
   return (
     <div className="App">
       <SearchLine onSearch={onSearch} />
       <MainPage
-        parametrsRequestUser={parametrsRequestUser}
+        parametersRequestUser={parametersRequestUser}
         setUserReposPage={setUserReposPage}
         isUserLoading={isUserLoading}
         isReposLoading={isReposLoading}
-        isInitial={isInitial.isInitial}
+        isInitial={isInitial}
       />
     </div>
   );
