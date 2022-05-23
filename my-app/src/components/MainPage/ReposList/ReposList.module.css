@@ -135,6 +135,9 @@
   .paginateInfo {
     display: none;
   }
+  .paginateBlock {
+    margin-right: 20px;
+  }
   @media (max-width: 480px) {
     .userInfoHeader {
       margin-left: 20px;
@@ -142,6 +145,12 @@
     .userRepos {
       width: calc(100% - 40px);
       margin-left: 20px;
+    }
+    .paginateBlock {
+      margin-right: 10px;
+    }
+    .userReposList {
+      min-height: 544px;
     }
   }
 }

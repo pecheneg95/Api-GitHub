@@ -53,13 +53,13 @@ function ReposList({
 
   return (
     <div className={styles.userRepos}>
+       <p className={styles.userInfoHeader}>
+            Repositories ({abbreviateNumber(userInfo.public_repos)})
+          </p>
       {isReposLoading ? (
         <Loader />
       ) : (
         <>
-          <p className={styles.userInfoHeader}>
-            Repositories ({abbreviateNumber(userInfo.public_repos)})
-          </p>
           <ul className={styles.userReposList}>{listUserReposItem}</ul>
         </>
       )}
