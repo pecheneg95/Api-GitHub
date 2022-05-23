@@ -1,1 +1,1 @@
-export const REPOS_ON_PAGE = 5;
+export const REPOS_ON_PAGE = 4;
