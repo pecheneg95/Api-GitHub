@@ -7,7 +7,7 @@ function ReposNotFound() {
   return (
     <div className={styles.reposNotFound}>
       <div className={styles.emptyStateMessage}>
-        <img src={reposNotFoundImg}></img>
+        <img src={reposNotFoundImg} alt="repositories not found"></img>
         <p className={styles.message}>Repository list is empty</p>
       </div>
     </div>

@@ -7,7 +7,7 @@ function UserNotFound () {
   return (
     <div className={styles.emptyState}>
       <div className={styles.emptyStateMessage}>
-        <img src={unionImg}></img>
+        <img src={unionImg} alt="user not found"></img>
         <p className={styles.message}>User not found</p>
       </div>
     </div>

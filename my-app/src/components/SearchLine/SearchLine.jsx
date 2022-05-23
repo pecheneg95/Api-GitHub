@@ -21,7 +21,7 @@ const SearchLine = ({ onSearch }) => {
 
   return (
     <div className={styles.searchLineBlock}>
-      <img src={logo} alt="logo" />
+      <img src={logo} alt="logo GitHub" />
       <div className={styles.searchLine}>
         <input
           type="search"
